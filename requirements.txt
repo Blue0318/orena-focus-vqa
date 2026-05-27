@@ -1,0 +1,17 @@
+orena-focus
+torch>=2.1.0
+torchvision
+transformers>=4.40.0
+accelerate
+datasets
+huggingface_hub
+Pillow
+numpy
+pandas
+pyyaml
+tqdm
+python-dotenv
+
+# Evaluation & logging
+scipy
+scikit-learn

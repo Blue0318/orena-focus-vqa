@@ -1,0 +1,26 @@
+track: FRAME
+dataset: heico
+split: train  # change to test for submission
+
+model:
+  name: Qwen/Qwen2-VL-7B-Instruct   # start here; swap as you experiment
+  dtype: bfloat16
+  device: cuda
+
+inference:
+  max_new_tokens: 64
+  temperature: 0.0          # deterministic for reproducibility
+  batch_size: 1             # increase if VRAM allows
+  time_budget_sec: 5        # hard constraint per question
+
+prompt:
+  system: >
+    You are a surgical AI assistant. Answer questions about laparoscopic 
+    surgery images concisely and accurately. Focus on foreign objects 
+    such as sponges, needles, clips, drains, and specimen bags.
+  use_metadata: true        # include procedure type and timestamp
+  use_few_shot: false       # toggle for experiments
+
+logging:
+  output_dir: results/frame
+  save_responses: true

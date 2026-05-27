@@ -1,0 +1,32 @@
+track: PROCEDURE
+dataset: heico
+split: train
+
+model:
+  name: Qwen/Qwen2-VL-7B-Instruct
+  dtype: bfloat16
+  device: cuda
+
+video:
+  # Aggressive sampling — full procedure is too large to process naively
+  frame_sample_strategy: sparse
+  max_frames: 32                    # spread across full procedure
+  segment_summary: true             # summarize segments to text, pass as context
+
+inference:
+  max_new_tokens: 128
+  temperature: 0.0
+  batch_size: 1
+  time_budget_sec: 30
+
+prompt:
+  system: >
+    You are a surgical AI assistant analyzing long laparoscopic procedures.
+    You will be given a summary of the procedure and key frames.
+    Answer questions about foreign objects, events, and procedures concisely.
+  use_metadata: true
+  use_few_shot: false
+
+logging:
+  output_dir: results/procedure
+  save_responses: true
